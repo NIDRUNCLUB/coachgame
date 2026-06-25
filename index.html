@@ -68,12 +68,12 @@
       <span class="qtype" id="p-qtype">題型</span>
       <span id="p-attempts" style="font-size:12px;color:#9c9a93;margin-left:8px;"></span>
       <div class="question" id="p-question">載入中…</div>
-      <input id="p-answer" type="text" placeholder="輸入答案，例如 3:50 或 230" autocomplete="off" inputmode="numeric">
+      <input id="p-answer" type="text" placeholder="輸入答案，例如 3:50 或 230" autocomplete="off">
       <div class="row" style="margin-top:12px;">
         <button class="btn btn-y" id="p-check">送出</button>
         <button class="btn btn-ghost" id="p-pass" style="margin-left:auto;">我不會，看解答</button>
       </div>
-      <div class="hint">時間用「分:秒」（如 3:50）或純秒數（如 230）；距離填公尺、單圈填秒。</div>
+      <div class="hint">時間可填「分:秒」（3:50）、用空格分隔（3 50），或純秒數（230）；距離填公尺、單圈填秒。</div>
       <div class="fb" id="p-fb"></div>
       <div class="sol" id="p-sol">
         <div class="h">怎麼算</div>
@@ -108,7 +108,7 @@
         <div id="c-seconds" style="font-size:20px;font-weight:700;color:#111;min-width:42px;text-align:right;">20</div>
       </div>
       <div class="question" id="c-question">載入中…</div>
-      <input id="c-answer" type="text" placeholder="快速輸入答案" autocomplete="off" inputmode="numeric">
+      <input id="c-answer" type="text" placeholder="快速輸入答案" autocomplete="off">
       <div class="row" style="margin-top:12px;">
         <button class="btn btn-y" id="c-check">送出</button>
       </div>
@@ -174,7 +174,7 @@ function makeQuestion(){
   }
   return q;
 }
-function parseAns(str){ str=(str||"").trim(); if(!str) return null; str=str.replace(/：/g,":"); if(str.indexOf(":")>=0){ var pp=str.split(":").map(function(x){return parseFloat(x);}); if(pp.some(isNaN)) return null; if(pp.length===3) return pp[0]*3600+pp[1]*60+pp[2]; return pp[0]*60+pp[1]; } var v=parseFloat(str); return isNaN(v)?null:v; }
+function parseAns(str){ str=(str||"").trim(); if(!str) return null; str=str.replace(/[：。\s]+/g,":"); if(str.indexOf(":")>=0){ var pp=str.split(":").map(function(x){return parseFloat(x);}); if(pp.some(isNaN)) return null; if(pp.length===3) return pp[0]*3600+pp[1]*60+pp[2]; return pp[0]*60+pp[1]; } var v=parseFloat(str); return isNaN(v)?null:v; }
 function ansDisplay(q){ if(q.unit==="秒") return Math.round(q.answerSec)+" 秒"; if(q.mode==="clock") return fmtClock(q.answerSec); return fmtTime(q.answerSec)+"（每公里）"; }
 
 var $=function(id){return document.getElementById(id);};
